@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Cadastrar } from './pages/Departamentos/Cadastrar';
-import { Listar } from './pages/Departamentos/Listar';
+import CadastrarDepartamentos from './pages/Departamentos/Cadastrar';
+import ListarDepartamentos from './pages/Departamentos/Listar';
 import { Main } from './pages/Main';
 
 export default function Routes(){
@@ -10,8 +10,8 @@ export default function Routes(){
         <BrowserRouter>
             <Switch>
                 <Route exact={true} path="/" component={Main} />
-                <Route exact={true} path="/departamentos" component={Listar} />
-                <Route exact={true} path="/departamentos/cadastro" component={Cadastrar} />
+                <Route exact={true} path="/departamentos" component={ListarDepartamentos} />
+                <Route exact={true} path="/departamentos/cadastro" component={CadastrarDepartamentos} />
             </Switch>
         </BrowserRouter>
     );
