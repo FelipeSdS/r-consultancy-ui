@@ -8,9 +8,17 @@ export function Main(){
         <>
          <Header />
          <div class="container">
-            <div className="main-content-column">
-                <h1>Bem vindo ao <strong className="main-name-title">R-Consultancy</strong></h1>
-                <img src={mainImg} alt="R-Consultancy" srcset="" />
+            <div class="container space-header">
+                <div className="row">
+                    <div className="col">
+                        <p class="text-center main-name-title fs-1 text-wrap">Bem vindo ao <strong>R-Consultancy</strong></p>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <img src={mainImg} alt="R-Consultancy" class="d-block w-100" srcset="" />
+                    </div>
+                </div>
             </div>
         </div> 
         </>
