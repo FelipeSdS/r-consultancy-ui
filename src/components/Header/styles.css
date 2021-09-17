@@ -5,6 +5,7 @@
 
 .navbar{
     padding: 30px;
+    background: rgb(8, 122, 122);
 }
 
 .navbar-toggler{
@@ -16,7 +17,8 @@
 }
 
 .modal-header{
-    background: #212529;
+    height: 105px;
+    background: rgb(8, 122, 122);
     color: #FFFFFF;
 }
 

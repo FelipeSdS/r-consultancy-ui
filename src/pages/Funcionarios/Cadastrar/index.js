@@ -1,9 +1,11 @@
-import React,{ Component } from "react";
+import React from "react";
+import { Component } from "react";
 
 import { Header } from "../../../components/Header";
-import { listUsers } from "../../../services/JsonPlaceHolder";
 
-export default class CadastrarDepartamentos extends Component{
+import { findByCep } from "../../../services/ViaCep";
+
+export default class CadastrarFuncionario extends Component{
 
     constructor(props){
         super(props)
@@ -12,23 +14,17 @@ export default class CadastrarDepartamentos extends Component{
             txNome : '',
             txSobrenome: '',
             txCep: '',
-            txCidade: '',
-            cdCliente: '',
-            users: []
+            txCidade: ''
         }
-    }
-
-    componentDidMount(){
-        this.loadSelect();
-    }
-
-    loadSelect = async (e) =>{
-        const response = await listUsers();
-        this.setState({ users: response})
     }
 
     handleChange = async (e) => {
         this.setState({ [e.target.name]: e.target.value });
+        if([e.target.name] == 'txCep' && e.target.value.length == 8){
+          const response = await findByCep(e.target.value);
+          console.log(response);
+          this.setState({txCidade: response.logradouro})
+        }
       }
 
     handleSubmit = (e) =>{
@@ -37,7 +33,7 @@ export default class CadastrarDepartamentos extends Component{
     }
 
     render(){
-        const { txNome, txSobrenome, txCep, txCidade, cdCliente, users } = this.state
+        const { txNome, txSobrenome, txCep, txCidade } = this.state
         return(
             <>
                 <Header />
@@ -94,17 +90,6 @@ export default class CadastrarDepartamentos extends Component{
                                             onChange={this.handleChange}
                                         />
                                     </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                <select className="form-select" aria-label="Default select example" name="cdCliente"  value={cdCliente} onChange={this.handleChange}>
-                                    {users.map(user =>
-                                        <option key={user.id} value={user.id}>{user.name}</option>
-                                    )
-
-                                    }
-                                </select>
                                 </div>
                             </div>
                             <button type="submit" className="btn btn-primary">Salvar</button>

@@ -8,12 +8,13 @@ import closeButton from '../../assets/close.png';
 import employeeLogo from '../../assets/employee.png';
 import cargosLogo from '../../assets/cargos.png';
 import departamentosLogo from '../../assets/departamentos.png';
+import clientesLogo from '../../assets/cliente.png';
 
 
 export function Header(){
     return(
         <>
-            <nav className="navbar navbar-dark bg-dark shadow">
+            <nav className="navbar navbar-dark  shadow">
                 <div className="container-fluid">
                     <Link to="/">
                         <span className="navbar-brand mb-0 h1 title">R-Consultancy</span>
@@ -35,6 +36,25 @@ export function Header(){
                         </div>
                         <div className="modal-body">
                             <div className="accordion" id="accordionExample">
+                            <div className="accordion-item">
+                                    <h2 className="accordion-header" id="headingTwo">
+                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseTwo">
+                                        <img src={clientesLogo} alt="" />
+                                        <strong>Clientes</strong>
+                                    </button>
+                                    </h2>
+                                    <div id="collapseFour" className="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                        <div className="accordion-body">
+                                            <div class="list-group">
+                                                <Link to="/clientes/cadastro">
+                                                    <button class="list-group-item list-group-item-action" data-bs-dismiss="modal" aria-label="Close">
+                                                        <strong className="main-name-title">Cadastrar</strong>
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="accordion-item">
                                     <h2 className="accordion-header" id="headingOne">
                                     <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -44,18 +64,18 @@ export function Header(){
                                     </h2>
                                     <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
-                                            <ul>
-                                                <li>
-                                                    <button data-bs-dismiss="modal" aria-label="Close">
-                                                        <Link to="/departamentos">Listar</Link>
+                                            <div class="list-group">
+                                                <Link to="/departamentos">
+                                                    <button class="list-group-item list-group-item-action" data-bs-dismiss="modal" aria-label="Close">
+                                                        <strong className="main-name-title">Listar</strong>
                                                     </button>
-                                                </li>
-                                                <li>
-                                                    <button data-bs-dismiss="modal" aria-label="Close">
-                                                        <Link to="/departamentos/cadastro">Cadastrar</Link>
+                                                </Link>
+                                                <Link to="/departamentos/cadastro">
+                                                    <button class="list-group-item list-group-item-action" data-bs-dismiss="modal" aria-label="Close">
+                                                        <strong className="main-name-title">Cadastrar</strong>
                                                     </button>
-                                                </li>
-                                            </ul>
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +101,13 @@ export function Header(){
                                     </h2>
                                     <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
-                                        
+                                            <div class="list-group">
+                                                <Link to="/funcionarios/cadastro">
+                                                    <button class="list-group-item list-group-item-action" data-bs-dismiss="modal" aria-label="Close">
+                                                        <strong className="main-name-title">Cadastrar</strong>
+                                                    </button>
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
