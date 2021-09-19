@@ -16,7 +16,9 @@ export function Main(){
                 </div>
                 <div className="row">
                     <div className="col">
-                        <img src={mainImg} alt="R-Consultancy" className="rounded mx-auto d-block" />
+                        <div className="text-center">
+                            <img src={mainImg} alt="R-Consultancy" className="rounded img-fluid" />
+                        </div>
                     </div>
                 </div>
             </div>
