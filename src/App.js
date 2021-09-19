@@ -2,7 +2,7 @@ import { Main } from './pages/Main';
 
 export function App() {
   return (
-    <div class="container">
+    <div className="container">
       <Main />
     </div>
   );

@@ -20,13 +20,17 @@ code {
     font-weight: bolder;
 }
 
+.main-img-logo{
+  margin-right: 100px;
+}
+
 label{
   font-weight: bolder;
   font-family: 'Julius Sans One', sans-serif;
 }
 
-input{
-  margin-bottom: 15px;
+input, select{
+  margin-bottom: 25px;
 }
 
 .space-header{

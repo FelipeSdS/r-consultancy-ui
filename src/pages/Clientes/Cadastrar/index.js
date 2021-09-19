@@ -46,6 +46,14 @@ export default class CadastrarCliente extends Component{
         console.log(this.state);
     }
 
+    handleReset = (e) =>{
+        this.setState({
+            txRazaoSocial: '', txNomeFantasia: '',txNomeSimples: '', txCpf: '', txCnpj: '', txCep: '',
+            txLogradouro: '', vlNumero: '', txBairro: '', txComplemento: '', txCidade: '', txUf: '',
+            txPais: '', txTelefone: '', txEmail: '', txWebSite: '', txAreaNegocios : ''
+        })
+    }
+
     render(){
 
         const { txRazaoSocial, txNomeFantasia, txNomeSimples, 
@@ -58,7 +66,7 @@ export default class CadastrarCliente extends Component{
                 <Header />
                 <div className="container">
                     <div className="container shadow p-3 space-header">
-                        <form onSubmit={this.handleSubmit}>
+                        <form onSubmit={this.handleSubmit} onReset={this.handleReset}>
                             <div className="row">
                                 <div className="col">
                                     <div className="form-group">
