@@ -1,20 +1,18 @@
-import React,{ Component } from "react";
-
+import React, { Component } from "react";
 import { Header } from "../../../components/Header";
 
-export default class CadastrarDepartamentos extends Component{
+export default class CadastrarCargo extends Component{
 
     constructor(props){
         super(props)
 
         this.state = {
             cdCliente: '',
-            txNome : '',
-            txSigla: '',
-            txResponsavel: '',
-            txEmail: '',
+            txNome: '',
             txDescricao: '',
-            empresas: []
+            txNivel: '',
+            txBaseSalarial: '',
+            clientes: []
         }
     }
 
@@ -26,10 +24,10 @@ export default class CadastrarDepartamentos extends Component{
         const listEmpresa = [
             {id: 1, txNome:"FACULDADE DAS AMERICAS"},
             {id: 2, txNome:"SOCIEDADE ESPORTIVA PALMEIRAS"}]
-        this.setState({ empresas: listEmpresa})
+        this.setState({ clientes: listEmpresa})
     }
 
-    handleChange = async (e) => {
+    handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
       }
 
@@ -40,12 +38,14 @@ export default class CadastrarDepartamentos extends Component{
 
     handleReset = (e) =>{
         this.setState({
-            cdCliente: '', txNome: '',txSigla: '', txResponsavel: '', txEmail: '', txDescricao: ''
+            cdCliente: '', txDescricao: '', txNome: '', txNivel: '', txBaseSalarial: ''
         })
     }
 
     render(){
-        const { cdCliente, txNome, txSigla, txResponsavel, txEmail, txDescricao, empresas } = this.state
+
+        const { clientes, cdCliente, txDescricao, txNome, txNivel, txBaseSalarial } = this.state;
+
         return(
             <>
                 <Header />
@@ -58,8 +58,8 @@ export default class CadastrarDepartamentos extends Component{
                                         <label>Empresa Cliente</label>
                                         <select className="form-select" aria-label="Default select example" name="cdCliente"  value={cdCliente} onChange={this.handleChange}>
                                             <option selected></option>
-                                            {empresas.map(empresa =>
-                                                <option key={empresa.id} value={empresa.id}>{empresa.txNome}</option>) }
+                                            {clientes.map(cliente =>
+                                                <option key={cliente.id} value={cliente.id}>{cliente.txNome}</option>) }
                                         </select>
                                     </div>
                                 </div>
@@ -79,12 +79,12 @@ export default class CadastrarDepartamentos extends Component{
                                 </div>
                                 <div className="col">
                                     <div className="form-group">
-                                        <label>Sigla</label>
+                                        <label>Nivel</label>
                                         <input 
                                             type="text" 
                                             className="form-control" 
-                                            name="txSigla" 
-                                            value={txSigla}
+                                            name="txNivel" 
+                                            value={txNivel}
                                             onChange={this.handleChange}
                                         />
                                     </div>
@@ -93,29 +93,17 @@ export default class CadastrarDepartamentos extends Component{
                             <div className="row">
                                 <div className="col">
                                     <div className="form-group">
-                                        <label>Responsavel</label>
+                                        <label>Base Salarial</label>
                                         <input 
                                             type="text" 
                                             className="form-control" 
-                                            name="txResponsavel" 
-                                            value={txResponsavel}
+                                            name="txBaseSalarial" 
+                                            value={txBaseSalarial}
                                             onChange={this.handleChange}
                                         />
                                     </div>
                                 </div>
-                                <div className="col">
-                                    <div className="form-group">
-                                        <label>E-mail</label>
-                                        <input 
-                                            type="text" 
-                                            className="form-control" 
-                                            name="txEmail" 
-                                            value={txEmail}
-                                            onChange={this.handleChange}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                            </div>                      
                             <div className="row">
                                 <div className="col">
                                     <div className="mb-3">
