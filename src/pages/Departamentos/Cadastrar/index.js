@@ -2,19 +2,24 @@ import React,{ Component } from "react";
 
 import { Header } from "../../../components/Header";
 
+import { list } from "../../../services/ClienteService";
+import { findByClienteId } from "../../../services/AreaService";
+import { create } from "../../../services/DepartamentoService";
+
 export default class CadastrarDepartamentos extends Component{
 
     constructor(props){
         super(props)
 
         this.state = {
-            cdCliente: '',
+            idCliente: '',
+            idArea: '',
             txNome : '',
-            txSigla: '',
             txResponsavel: '',
             txEmail: '',
             txDescricao: '',
-            empresas: []
+            clientes: [],
+            areas: [],
         }
     }
 
@@ -23,29 +28,32 @@ export default class CadastrarDepartamentos extends Component{
     }
 
     loadSelect = async (e) =>{
-        const listEmpresa = [
-            {id: 1, txNome:"FACULDADE DAS AMERICAS"},
-            {id: 2, txNome:"SOCIEDADE ESPORTIVA PALMEIRAS"}]
-        this.setState({ empresas: listEmpresa})
+        const listEmpresa = await list();
+        this.setState({ clientes: listEmpresa});
     }
 
     handleChange = async (e) => {
         this.setState({ [e.target.name]: e.target.value });
+        if([e.target.name] == "idCliente" && e.target.value != ""){
+            const response = await findByClienteId(e.target.value);
+            this.setState({areas : response});
+        }
       }
 
     handleSubmit = (e) =>{
         e.preventDefault()
+        create(this.state)
         console.log(this.state);
     }
 
     handleReset = (e) =>{
         this.setState({
-            cdCliente: '', txNome: '',txSigla: '', txResponsavel: '', txEmail: '', txDescricao: ''
+            idCliente: '', idArea: '', txNome: '', txResponsavel: '', txEmail: '', txDescricao: ''
         })
     }
 
     render(){
-        const { cdCliente, txNome, txSigla, txResponsavel, txEmail, txDescricao, empresas } = this.state
+        const { idCliente, idArea, txNome, txResponsavel, txEmail, txDescricao, clientes, areas } = this.state
         return(
             <>
                 <Header />
@@ -56,10 +64,20 @@ export default class CadastrarDepartamentos extends Component{
                                 <div className="col">
                                     <div className="form-group">
                                         <label>Empresa Cliente</label>
-                                        <select className="form-select" aria-label="Default select example" name="cdCliente"  value={cdCliente} onChange={this.handleChange}>
+                                        <select className="form-select" aria-label="Default select example" name="idCliente"  value={idCliente} onChange={this.handleChange}>
                                             <option selected></option>
-                                            {empresas.map(empresa =>
-                                                <option key={empresa.id} value={empresa.id}>{empresa.txNome}</option>) }
+                                            {clientes.map(cliente =>
+                                                <option key={cliente.idCliente} value={cliente.idCliente}>{cliente.txRazaoSocial}</option>) }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className="form-group">
+                                        <label>Areas</label>
+                                        <select className="form-select" aria-label="Default select example" name="idArea"  value={idArea} onChange={this.handleChange}>
+                                            <option selected></option>
+                                            {areas.map(area =>
+                                                <option key={area.idArea} value={area.idArea}>{area.txNome}</option>) }
                                         </select>
                                     </div>
                                 </div>
@@ -73,18 +91,6 @@ export default class CadastrarDepartamentos extends Component{
                                             className="form-control" 
                                             name="txNome" 
                                             value={txNome}
-                                            onChange={this.handleChange}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="form-group">
-                                        <label>Sigla</label>
-                                        <input 
-                                            type="text" 
-                                            className="form-control" 
-                                            name="txSigla" 
-                                            value={txSigla}
                                             onChange={this.handleChange}
                                         />
                                     </div>

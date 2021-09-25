@@ -7,3 +7,7 @@ export const viaCep = axios.create({
 export const jsonPlaceHolder = axios.create({
     baseURL: 'https://jsonplaceholder.typicode.com/'
 })
+
+export const rConsultancyApi = axios.create({
+    baseURL: process.env.R_CONSULTANCY_API,
+})
