@@ -9,5 +9,5 @@ export const jsonPlaceHolder = axios.create({
 })
 
 export const rConsultancyApi = axios.create({
-    baseURL: process.env.R_CONSULTANCY_API,
+    baseURL: 'https://r-consultancy-api.herokuapp.com/',
 })
