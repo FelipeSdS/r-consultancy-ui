@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 
+
+import { create } from "../../../services/ClienteService";
 import { findByCep } from "../../../services/ViaCep";
+
 
 import { Header } from "../../../components/Header";
 
@@ -43,7 +46,7 @@ export default class CadastrarCliente extends Component{
 
     handleSubmit = (e) =>{
         e.preventDefault()
-        console.log(this.state);
+        create(this.state);
     }
 
     handleReset = (e) =>{

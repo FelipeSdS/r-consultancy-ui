@@ -5,8 +5,9 @@ import './styles.css'
 import { Link } from "react-router-dom";
 
 import closeButton from '../../assets/close.png';
-import employeeLogo from '../../assets/employee.png';
+import funcionarioLogo from '../../assets/employee.png';
 import cargosLogo from '../../assets/cargos.png';
+import areasLogo from '../../assets/areas.png';
 import departamentosLogo from '../../assets/departamentos.png';
 import clientesLogo from '../../assets/cliente.png';
 
@@ -47,6 +48,25 @@ export function Header(){
                                         <div className="accordion-body">
                                             <div className="list-group">
                                                 <Link to="/clientes/cadastro">
+                                                    <button className="list-group-item list-group-item-action" data-bs-dismiss="modal" aria-label="Close">
+                                                        <strong className="main-name-title">Cadastrar</strong>
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="accordion-item">
+                                    <h2 className="accordion-header" id="headingFive">
+                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        <img src={areasLogo} alt="" />
+                                        <strong>Areas</strong>
+                                    </button>
+                                    </h2>
+                                    <div id="collapseFive" className="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                        <div className="accordion-body">
+                                            <div className="list-group">
+                                                <Link to="/areas/cadastro">
                                                     <button className="list-group-item list-group-item-action" data-bs-dismiss="modal" aria-label="Close">
                                                         <strong className="main-name-title">Cadastrar</strong>
                                                     </button>
@@ -99,7 +119,7 @@ export function Header(){
                                 <div className="accordion-item">
                                     <h2 className="accordion-header" id="headingThree">
                                     <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        <img src={employeeLogo} alt="" />
+                                        <img src={funcionarioLogo} alt="" />
                                         <strong>Funcionarios</strong>
                                     </button>
                                     </h2>

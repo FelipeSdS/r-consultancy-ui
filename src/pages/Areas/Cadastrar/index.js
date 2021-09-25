@@ -1,24 +1,22 @@
-import React, { Component } from "react";
+import React, { Component }  from "react";
 import { Header } from "../../../components/Header";
 
 import { list } from "../../../services/ClienteService";
 
+import { create } from "../../../services/AreaService";
 
-
-
-
-export default class CadastrarCargo extends Component{
+export default class CadastrarAreas extends Component{
 
     constructor(props){
         super(props)
 
         this.state = {
             idCliente: '',
-            idArea: '',
             txNome: '',
+            txSigla: '',
             txDescricao: '',
-            txNivel: '',
-            txBaseSalarial: '',
+            txGerente: '',
+            txEmail: '',
             clientes: []
         }
     }
@@ -34,26 +32,23 @@ export default class CadastrarCargo extends Component{
 
     handleChange = async (e) => {
         this.setState({ [e.target.name]: e.target.value });
-        if([e.target.name] === 'idCliente' && e.target.value !== ""){
-            const listClientes = await list(e.target.value);
-            console.log(listClientes);
-        }
-      }
+    }
 
     handleSubmit = (e) =>{
         e.preventDefault()
         console.log(this.state);
+        create(this.state);
     }
 
     handleReset = (e) =>{
         this.setState({
-            idCliente: '', txDescricao: '', txNome: '', txNivel: '', txBaseSalarial: ''
+            cdCliente: '', txNome: '', txSigla:'', txGerente: '', txEmail: '', txDescricao: ''
         })
     }
 
     render(){
 
-        const { clientes, idCliente, txDescricao, txNome, txNivel, txBaseSalarial } = this.state;
+        const { clientes, idCliente, txNome, txSigla, txGerente, txEmail, txDescricao } = this.state;
 
         return(
             <>
@@ -61,59 +56,71 @@ export default class CadastrarCargo extends Component{
                 <div className="container">
                     <div className="container shadow p-3 space-header">
                         <form onSubmit={this.handleSubmit} onReset={this.handleReset}>
+                                <div className="row">
+                                    <div className="col">
+                                        <div className="form-group">
+                                            <label>Empresa Cliente</label>
+                                            <select className="form-select" aria-label="Default select example" name="idCliente"  value={idCliente} onChange={this.handleChange}>
+                                                <option selected></option>
+                                                {clientes.map(cliente =>
+                                                    <option key={cliente.idCliente} value={cliente.idCliente}>{cliente.txRazaoSocial}</option>) 
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <div className="form-group">
+                                            <label>Nome</label>
+                                            <input 
+                                                type="text" 
+                                                className="form-control" 
+                                                name="txNome" 
+                                                value={txNome}
+                                                onChange={this.handleChange}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col">
+                                        <div className="form-group">
+                                            <label>Sigla</label>
+                                            <input 
+                                                type="text" 
+                                                className="form-control" 
+                                                name="txSigla" 
+                                                value={txSigla}
+                                                onChange={this.handleChange}
+                                            />
+                                        </div>
+                                     </div>
+                                </div>
                             <div className="row">
                                 <div className="col">
                                     <div className="form-group">
-                                        <label>Empresa Cliente</label>
-                                        <select className="form-select" aria-label="Default select example" name="idCliente"  value={idCliente} onChange={this.handleChange}>
-                                            <option selected value=""></option>
-                                            {clientes.map(cliente =>
-                                                <option key={cliente.idCliente} value={cliente.idCliente}>{cliente.txRazaoSocial}</option>) 
-                                            }
-                                        </select>
+                                        <label>Gerente</label>
+                                        <input 
+                                            type="text" 
+                                            className="form-control" 
+                                            name="txGerente" 
+                                            value={txGerente}
+                                            onChange={this.handleChange}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className="form-group">
+                                        <label>Email</label>
+                                        <input 
+                                            type="text" 
+                                            className="form-control" 
+                                            name="txEmail" 
+                                            value={txEmail}
+                                            onChange={this.handleChange}
+                                        />
                                     </div>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col">
-                                    <div className="form-group">
-                                        <label>Nome</label>
-                                        <input 
-                                            type="text" 
-                                            className="form-control" 
-                                            name="txNome" 
-                                            value={txNome}
-                                            onChange={this.handleChange}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="form-group">
-                                        <label>Nivel</label>
-                                        <input 
-                                            type="text" 
-                                            className="form-control" 
-                                            name="txNivel" 
-                                            value={txNivel}
-                                            onChange={this.handleChange}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <div className="form-group">
-                                        <label>Base Salarial</label>
-                                        <input 
-                                            type="text" 
-                                            className="form-control" 
-                                            name="txBaseSalarial" 
-                                            value={txBaseSalarial}
-                                            onChange={this.handleChange}
-                                        />
-                                    </div>
-                                </div>
-                            </div>                      
                             <div className="row">
                                 <div className="col">
                                     <div className="mb-3">
