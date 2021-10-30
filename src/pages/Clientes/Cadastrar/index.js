@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 
-
 import { create } from "../../../services/ClienteService";
 import { findByCep } from "../../../services/ViaCep";
 
-
 import { Header } from "../../../components/Header";
+import { InputMaskCelular, InputMaskCPF, InputMaskTelefone, InputMaskCNPJ  } from "../../../components/InputMask";
 
 export default class CadastrarCliente extends Component{
 
@@ -16,7 +15,6 @@ export default class CadastrarCliente extends Component{
             txRazaoSocial: '',
             txNomeFantasia: '',
             txNomeSimples: '',
-            txCpf: '',
             txCnpj: '',
             txCep: '',
             txLogradouro: '',
@@ -27,6 +25,7 @@ export default class CadastrarCliente extends Component{
             txUf: '',
             txPais: '',
             txTelefone: '',
+            txCelular: '',
             txEmail: '',
             txWebSite: '',
             txAreaNegocios : ''
@@ -47,21 +46,22 @@ export default class CadastrarCliente extends Component{
     handleSubmit = (e) =>{
         e.preventDefault()
         create(this.state);
+        this.handleReset();
     }
 
     handleReset = (e) =>{
         this.setState({
             txRazaoSocial: '', txNomeFantasia: '',txNomeSimples: '', txCpf: '', txCnpj: '', txCep: '',
             txLogradouro: '', vlNumero: '', txBairro: '', txComplemento: '', txCidade: '', txUf: '',
-            txPais: '', txTelefone: '', txEmail: '', txWebSite: '', txAreaNegocios : ''
+            txPais: '', txTelefone: '', txCelular: '', txEmail: '', txWebSite: '', txAreaNegocios : ''
         })
     }
 
     render(){
 
         const { txRazaoSocial, txNomeFantasia, txNomeSimples, 
-                txCpf, txCnpj, txCep, txLogradouro, vlNumero, txBairro, txComplemento, txCidade, txUf, txPais,
-                txTelefone, txEmail, txWebSite, txAreaNegocios
+                txCnpj, txCep, txLogradouro, vlNumero, txBairro, txComplemento, txCidade, txUf, txPais,
+                txTelefone, txCelular, txEmail, txWebSite, txAreaNegocios
             } = this.state
 
         return(
@@ -113,22 +113,8 @@ export default class CadastrarCliente extends Component{
                             <div className="row">
                                 <div className="col">
                                     <div className="form-group">
-                                        <label>CPF</label>
-                                        <input 
-                                            type="text" 
-                                            className="form-control" 
-                                            name="txCpf" 
-                                            value={txCpf}
-                                            onChange={this.handleChange}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="form-group">
                                         <label>CNPJ</label>
-                                        <input 
-                                            type="text" 
-                                            className="form-control" 
+                                        <InputMaskCNPJ
                                             name="txCnpj" 
                                             value={txCnpj}
                                             onChange={this.handleChange}
@@ -242,11 +228,19 @@ export default class CadastrarCliente extends Component{
                                 <div className="col">
                                     <div className="form-group">
                                         <label>Telefone</label>
-                                        <input 
-                                            type="text" 
-                                            className="form-control" 
+                                        <InputMaskTelefone
                                             name="txTelefone" 
                                             value={txTelefone}
+                                            onChange={this.handleChange}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className="form-group">
+                                        <label>Celular</label>
+                                        <InputMaskCelular
+                                            name="txCelular" 
+                                            value={txCelular}
                                             onChange={this.handleChange}
                                         />
                                     </div>
