@@ -34,10 +34,10 @@ export default class CadastrarAreas extends Component{
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    handleSubmit = (e) =>{
+    handleSubmit = async (e) =>{
         e.preventDefault()
-        console.log(this.state);
-        create(this.state);
+        const response = await create(this.state);
+        this.handleReset();
     }
 
     handleReset = (e) =>{
@@ -61,7 +61,7 @@ export default class CadastrarAreas extends Component{
                                         <div className="form-group">
                                             <label>Empresa Cliente</label>
                                             <select className="form-select" aria-label="Default select example" name="idCliente"  value={idCliente} onChange={this.handleChange}>
-                                                <option selected></option>
+                                                <option selected value="0">Seleciona uma opção ...</option>
                                                 {clientes.map(cliente =>
                                                     <option key={cliente.idCliente} value={cliente.idCliente}>{cliente.txRazaoSocial}</option>) 
                                                 }

@@ -1,12 +1,13 @@
 import { rConsultancyApi } from "./api";
 
-export function create(areaRequest){
-    rConsultancyApi.post('area', areaRequest)
+export async function create(areaRequest){
+    await rConsultancyApi.post('area', areaRequest)
     .then(response =>{
-        alert("Criado com sucesso");
+        return "";
     })
     .catch(error =>{
-        console.log(error.message);
+        console.log(error.response.data.message);
+        return error.response.data.message;
     })
 }
 
