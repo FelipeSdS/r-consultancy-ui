@@ -6,7 +6,7 @@ import { rConsultancyApi } from "../../../services/api";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
-export default class ListarDepartamentos extends Component{
+export default class ListarCargos extends Component{
 
     constructor(props){
         super(props)
@@ -16,7 +16,9 @@ export default class ListarDepartamentos extends Component{
             clientes: [],
             idArea: '',
             areas: [],
-            departamentos: []
+            idDepartamento: '',
+            departamentos: [],
+            cargos: []
         }
     }
 
@@ -32,9 +34,8 @@ export default class ListarDepartamentos extends Component{
         if([e.target.name] == 'idArea' && e.target.value !== ""){
             this.buscarDepartamentosPorArea(e.target.value);
         }
-
-        if(([e.target.name] == 'idArea' [e.target.name] == 'idCliente')  && e.target.value !== ""){
-            this.limpaSelect();
+        if([e.target.name] == 'idDepartamento' && e.target.value !== ""){
+            this.buscarCargosPorDepartamento(e.target.value);
         }
       }
 
@@ -50,24 +51,27 @@ export default class ListarDepartamentos extends Component{
 
     buscarDepartamentosPorArea = async (idArea) =>{
         const response = await rConsultancyApi.get(`departamento/area/${idArea}`);
-        this.setState({departamentos :response.data });
+        this.setState({ departamentos :response.data });
     }
 
-    limpaSelect(){
-        this.setState({departamentos: [], areas: [], departamentos: [] });
+    buscarCargosPorDepartamento = async (idDepartamento) =>{
+        const response = await rConsultancyApi.get(`cargo/departamento/${idDepartamento}`);
+        this.setState({ cargos :response.data });
     }
 
-    editarDepartamento(paramIdDepartamento){
-        alert('Opa, você clicou no departamento: ' + paramIdDepartamento);
+
+
+    editarCargo(paramIdCargo){
+        alert('Opa, você clicou no cargo: ' + paramIdCargo);
     }
 
-    deletarDepartamento(paramIdDepartamento){
-        alert('Opa, você quer deletar o departamento: ' + paramIdDepartamento);
+    deletarCargo(paramIdCargo){
+        alert('Opa, você quer deletar o cargo: ' + paramIdCargo);
     }
 
     render(){
 
-        const{ clientes, idCliente, areas, idArea, departamentos } = this.state;
+        const{ clientes, idCliente, areas, idArea, idDepartamento, departamentos, cargos } = this.state;
 
         return(
             <>           
@@ -85,8 +89,10 @@ export default class ListarDepartamentos extends Component{
                                     }
                                 </select>
                             </div>
-                         </div>
-                         <div className="col">
+                        </div>
+                    </div> 
+                    <div className="row">
+                        <div className="col">
                             <div className="form-group">
                                 <label>Areas</label>
                                 <select className="form-select" aria-label="Default select example" name="idArea"  value={idArea} onChange={this.handleChange}>
@@ -96,32 +102,43 @@ export default class ListarDepartamentos extends Component{
                                 </select>
                             </div>
                         </div>
-                    </div>                
+                        <div className="col">
+                            <div className="form-group">
+                                <label>Departamento</label>
+                                <select className="form-select"  name="idDepartamento"  value={idDepartamento} onChange={this.handleChange}>
+                                    <option selected value="0">Seleciona uma opção ...</option>
+                                    {departamentos.map(departamento =>
+                                        <option key={departamento.idDepartamento} value={departamento.idDepartamento}>{departamento.txNome}</option>) 
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>               
                     <table className="table table-striped">
                         <thead className="table-head">
                             <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Responsavel</th>
+                            <th scope="col">Nivel</th>
+                            <th scope="col">Base Salarial</th>
                             <th scope="col">Editar</th>
                             <th scope="col">Excluir</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                            departamentos.map(departamento =>
-                                    <tr key={departamento.idDepartamento}>
-                                        <th scope="row">{departamento.idDepartamento}</th>
-                                        <td>{departamento.txNome}</td>
-                                        <td>{departamento.txResponsavel}</td>
-                                        <td onClick={() => this.editarDepartamento(departamento.idDepartamento)}>
+                            cargos.map(cargo =>
+                                    <tr key={cargo.idCargo}>
+                                        <th scope="row">{cargo.idCargo}</th>
+                                        <td>{cargo.txNome}</td>
+                                        <td>{cargo.txNivel}</td>
+                                        <td>{cargo.vlBaseSalarial}</td>
+                                        <td onClick={() => this.editarCargo(cargo.idCargo)}>
                                             <EditIcon 
                                                 className="button-icon" 
-                                                data-toggle="modal" 
-                                                data-target="#exampleModal"
                                             />
                                         </td>
-                                        <td onClick={() => this.deletarDepartamento(departamento.idDepartamento)}>
+                                        <td onClick={() => this.deletarCargo(cargo.idCargo)}>
                                             <DeleteIcon className="button-icon" />
                                         </td>
                                     </tr>

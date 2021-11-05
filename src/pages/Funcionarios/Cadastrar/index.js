@@ -2,7 +2,7 @@ import React from "react";
 import { Component } from "react";
 
 import { Header } from "../../../components/Header";
-import { InputMaskCPF, InputMaskDinheiro } from "../../../components/InputMask";
+import InputMask from "react-number-format";
 
 import { rConsultancyApi } from "../../../services/api";
 
@@ -188,7 +188,10 @@ export default class CadastrarFuncionario extends Component{
                                 <div className="col">
                                     <div className="form-group">
                                         <label>Complemento Salario</label>
-                                        <InputMaskDinheiro 
+                                        <InputMask 
+                                            thousandSeparator={true}  
+                                            prefix={'R$'}
+                                            className="form-control" 
                                             name="txComplementoSalario"
                                             value={txComplementoSalario}
                                             onChange={this.handleChange}
@@ -238,7 +241,9 @@ export default class CadastrarFuncionario extends Component{
                                 <div className="col">
                                     <div className="form-group">
                                         <label>CPF</label>
-                                        <InputMaskCPF  
+                                        <InputMask
+                                            format="###.###.###-##" 
+                                            className="form-control"    
                                             name="txCpf" 
                                             value={txCpf}
                                             onChange={this.handleChange}

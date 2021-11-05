@@ -1,7 +1,6 @@
 import { rConsultancyApi } from "./api";
 
 export function create(cliente){
-    const message = '';
     rConsultancyApi.post('cliente', cliente)
         .then(response =>{
             alert("Criado com sucesso");
