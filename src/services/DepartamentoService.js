@@ -7,6 +7,7 @@ export function create(departamentoRequest){
     })
     .catch(error =>{
         console.log(error.message);
+        
     })
 }
 
