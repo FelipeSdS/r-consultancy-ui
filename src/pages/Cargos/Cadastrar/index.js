@@ -1,19 +1,13 @@
 import React, { Component } from "react";
 import { Header } from "../../../components/Header";
 
+import { rConsultancyApi } from "../../../services/api";
+
 import { findByClienteId } from "../../../services/AreaService";
 import { criarNovoCargo } from "../../../services/CargoService";
 import { list } from "../../../services/ClienteService";
 import { findByAreaId } from "../../../services/DepartamentoService";
 import InputMask from "react-number-format";
-
-
-const numberFormat = (value) =>
-  new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'INR'
-  }).format(value);
-
 
 
 export default class CadastrarCargo extends Component{
@@ -59,13 +53,14 @@ export default class CadastrarCargo extends Component{
 
     handleSubmit = async (e) =>{
         e.preventDefault()
-        const response = await criarNovoCargo(this.state);
-        if(response === ""){
-            alert("Criado com sucesso");
-        }else{
-            alert(response);
-        }
-        this.handleReset();
+        await rConsultancyApi.post('cargo', this.state)
+        .then(response =>{
+            alert('Criado com sucesso.');
+        })
+        .catch(error =>{
+            console.log(error.response.data.message);
+            alert(error.response.data.message);
+        })
     }
 
     handleReset = (e) =>{

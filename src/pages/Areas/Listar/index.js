@@ -6,7 +6,7 @@ import { rConsultancyApi } from "../../../services/api";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
-export default class ListarDepartamentos extends Component{
+export default class ListarAreas extends Component{
 
     constructor(props){
         super(props)
@@ -14,9 +14,7 @@ export default class ListarDepartamentos extends Component{
         this.state = {
             idCliente: '',
             clientes: [],
-            idArea: '',
-            areas: [],
-            departamentos: []
+            areas: []
         }
     }
 
@@ -28,13 +26,6 @@ export default class ListarDepartamentos extends Component{
         this.setState({ [e.target.name]: e.target.value });
         if([e.target.name] == "idCliente" && e.target.value != ""){
             this.buscarAreasPorCliente(e.target.value);
-        }
-        if([e.target.name] == 'idArea' && e.target.value !== ""){
-            this.buscarDepartamentosPorArea(e.target.value);
-        }
-
-        if(([e.target.name] == 'idArea' [e.target.name] == 'idCliente')  && e.target.value !== ""){
-            this.limpaSelect();
         }
       }
 
@@ -48,26 +39,17 @@ export default class ListarDepartamentos extends Component{
         this.setState({ areas: response.data });
     }
 
-    buscarDepartamentosPorArea = async (idArea) =>{
-        const response = await rConsultancyApi.get(`departamento/area/${idArea}`);
-        this.setState({departamentos :response.data });
+    editarArea(paramIdArea){
+        alert('Opa, você clicou na area: ' + paramIdArea);
     }
 
-    limpaSelect(){
-        this.setState({departamentos: [], areas: [], departamentos: [] });
-    }
-
-    editarDepartamento(paramIdDepartamento){
-        alert('Opa, você clicou no departamento: ' + paramIdDepartamento);
-    }
-
-    deletarDepartamento(paramIdDepartamento){
-        alert('Opa, você quer deletar o departamento: ' + paramIdDepartamento);
+    deletarArea(paramIdArea){
+        alert('Opa, você quer deletar a area: ' + paramIdArea);
     }
 
     render(){
 
-        const{ clientes, idCliente, areas, idArea, departamentos } = this.state;
+        const{ clientes, idCliente, areas } = this.state;
 
         return(
             <>           
@@ -86,22 +68,13 @@ export default class ListarDepartamentos extends Component{
                                 </select>
                             </div>
                          </div>
-                         <div className="col">
-                            <div className="form-group">
-                                <label>Areas</label>
-                                <select className="form-select" aria-label="Default select example" name="idArea"  value={idArea} onChange={this.handleChange}>
-                                    <option selected value="0">Seleciona uma opção ...</option>
-                                    {areas.map(area =>
-                                        <option key={area.idArea} value={area.idArea}>{area.txNome}</option>) }
-                                </select>
-                            </div>
-                        </div>
-                    </div>                
+                    </div>                   
                     <table className="table table-striped">
                         <thead className="table-head">
                             <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Nome</th>
+                            <th scope="col">Sigla</th>
                             <th scope="col">Responsavel</th>
                             <th scope="col">Editar</th>
                             <th scope="col">Excluir</th>
@@ -109,19 +82,18 @@ export default class ListarDepartamentos extends Component{
                         </thead>
                         <tbody>
                             {
-                            departamentos.map(departamento =>
-                                    <tr key={departamento.idDepartamento}>
-                                        <th scope="row">{departamento.idDepartamento}</th>
-                                        <td>{departamento.txNome}</td>
-                                        <td>{departamento.txResponsavel}</td>
-                                        <td onClick={() => this.editarDepartamento(departamento.idDepartamento)}>
+                            areas.map(area =>
+                                    <tr key={area.idArea}>
+                                        <th scope="row">{area.idArea}</th>
+                                        <td>{area.txNome}</td>
+                                        <td>{area.txSigla}</td>
+                                        <td>{area.txGerente}</td>
+                                        <td onClick={() => this.editarArea(area.idArea)}>
                                             <EditIcon 
                                                 className="button-icon" 
-                                                data-toggle="modal" 
-                                                data-target="#exampleModal"
                                             />
                                         </td>
-                                        <td onClick={() => this.deletarDepartamento(departamento.idDepartamento)}>
+                                        <td onClick={() => this.deletarArea(area.idArea)}>
                                             <DeleteIcon className="button-icon" />
                                         </td>
                                     </tr>

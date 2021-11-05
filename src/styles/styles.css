@@ -39,3 +39,13 @@ input:focus{
 .space-header{
   margin-top: 40px;
 }
+
+.table-head{
+  background: rgb(8, 122, 122) !important;
+  color: #fefefe;
+  font-family: 'Julius Sans One', sans-serif;
+}
+
+.button-icon:hover{
+  cursor: pointer;
+}

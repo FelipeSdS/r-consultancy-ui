@@ -12,7 +12,7 @@ export function InputMaskCPF(){
     );
 }
 
-export function InputMaskCNPJ(){
+export function InputMaskCNPJ({txName, txValue}){
     return(
         <InputMask  
             format="##.###.###/####-##" 

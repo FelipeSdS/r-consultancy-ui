@@ -53,7 +53,14 @@ export function Header(){
                                                     </button>
                                                 </Link>
                                             </div>
-                                        </div>
+                                            <div className="list-group">
+                                                <Link to="/clientes">
+                                                    <button className="list-group-item list-group-item-action" data-bs-dismiss="modal" aria-label="Close">
+                                                        <strong className="main-name-title">Listar</strong>
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                        </div>                                      
                                     </div>
                                 </div>
                                 <div className="accordion-item">
@@ -69,6 +76,13 @@ export function Header(){
                                                 <Link to="/areas/cadastro">
                                                     <button className="list-group-item list-group-item-action" data-bs-dismiss="modal" aria-label="Close">
                                                         <strong className="main-name-title">Cadastrar</strong>
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                            <div className="list-group">
+                                                <Link to="/areas">
+                                                    <button className="list-group-item list-group-item-action" data-bs-dismiss="modal" aria-label="Close">
+                                                        <strong className="main-name-title">Listar</strong>
                                                     </button>
                                                 </Link>
                                             </div>
@@ -111,6 +125,11 @@ export function Header(){
                                             <Link to="/cargos/cadastro">
                                                 <button className="list-group-item list-group-item-action" data-bs-dismiss="modal" aria-label="Close">
                                                     <strong className="main-name-title">Cadastrar</strong>
+                                                </button>
+                                            </Link>
+                                            <Link to="/cargos">
+                                                <button className="list-group-item list-group-item-action" data-bs-dismiss="modal" aria-label="Close">
+                                                    <strong className="main-name-title">Listar</strong>
                                                 </button>
                                             </Link>
                                         </div>

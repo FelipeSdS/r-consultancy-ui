@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
-import { create } from "../../../services/ClienteService";
+import { rConsultancyApi } from "../../../services/api";
 import { findByCep } from "../../../services/ViaCep";
 
 import { Header } from "../../../components/Header";
-import { InputMaskCelular, InputMaskCPF, InputMaskTelefone, InputMaskCNPJ  } from "../../../components/InputMask";
+import InputMask from "react-number-format";
 
 export default class CadastrarCliente extends Component{
 
@@ -16,7 +16,6 @@ export default class CadastrarCliente extends Component{
             txNomeFantasia: '',
             txNomeSimples: '',
             txCnpj: '',
-            txCep: '',
             txLogradouro: '',
             vlNumero: '',
             txBairro: '',
@@ -41,17 +40,27 @@ export default class CadastrarCliente extends Component{
                             txComplemento: response.complemento                           
                         })
         }
+        if([e.target.name] == 'txCnpj'){
+            console.log(e.target.value);
+        }
     }
 
-    handleSubmit = (e) =>{
-        e.preventDefault()
-        create(this.state);
-        this.handleReset();
+    handleSubmit = async (e) =>{
+        e.preventDefault();
+        await rConsultancyApi.post('cliente', this.state)
+        .then(response =>{
+            alert('Criado com sucesso.');
+        })
+        .catch(error =>{
+            console.log(error.response.data.message);
+            alert(error.response.data.message);
+        })
+
     }
 
     handleReset = (e) =>{
         this.setState({
-            txRazaoSocial: '', txNomeFantasia: '',txNomeSimples: '', txCpf: '', txCnpj: '', txCep: '',
+            txRazaoSocial: '', txNomeFantasia: '',txNomeSimples: '', txCnpj: '', txCep: '',
             txLogradouro: '', vlNumero: '', txBairro: '', txComplemento: '', txCidade: '', txUf: '',
             txPais: '', txTelefone: '', txCelular: '', txEmail: '', txWebSite: '', txAreaNegocios : ''
         })
@@ -114,7 +123,9 @@ export default class CadastrarCliente extends Component{
                                 <div className="col">
                                     <div className="form-group">
                                         <label>CNPJ</label>
-                                        <InputMaskCNPJ
+                                        <InputMask  
+                                            className="form-control" 
+                                            format="##.###.###/####-##" 
                                             name="txCnpj" 
                                             value={txCnpj}
                                             onChange={this.handleChange}
@@ -228,20 +239,24 @@ export default class CadastrarCliente extends Component{
                                 <div className="col">
                                     <div className="form-group">
                                         <label>Telefone</label>
-                                        <InputMaskTelefone
+                                        <InputMask  
+                                            format="(##)####-####" 
                                             name="txTelefone" 
                                             value={txTelefone}
                                             onChange={this.handleChange}
+                                            className="form-control" 
                                         />
                                     </div>
                                 </div>
                                 <div className="col">
                                     <div className="form-group">
                                         <label>Celular</label>
-                                        <InputMaskCelular
+                                        <InputMask  
+                                            format="(##)#####-####" 
                                             name="txCelular" 
                                             value={txCelular}
                                             onChange={this.handleChange}
+                                            className="form-control" 
                                         />
                                     </div>
                                 </div>
